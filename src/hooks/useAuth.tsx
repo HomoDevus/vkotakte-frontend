@@ -11,6 +11,7 @@ type AuthContextType = {
   login: (data: LoginData) => Promise<void>;
   logout: () => Promise<void>;
   isLogging: boolean;
+  setToken: (token: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType>(null!);
@@ -23,7 +24,7 @@ export function AuthProvider({ children }: Props) {
   async function login (data: LoginData) {
     const { token } = await loginAction(data).unwrap()
     setToken(`Bearer ${token}`);
-    navigate(`/profile`);
+    navigate(`/profile/${getIdFromToken()}`);
   }
 
   async function logout () {
@@ -36,7 +37,8 @@ export function AuthProvider({ children }: Props) {
       userId: getIdFromToken(),
       login,
       logout,
-      isLogging: isLoading
+      isLogging: isLoading,
+      setToken
     }),
     [token, isLoading]
   );

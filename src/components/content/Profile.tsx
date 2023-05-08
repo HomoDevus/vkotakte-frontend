@@ -5,7 +5,7 @@ import { getIdFromToken } from '../../utils';
 export default function Profile() {
   const { userId } = useParams()
   const isMyProfile = Boolean(userId)
-  const { data, isLoading, isSuccess, isError, error } = useGetUserInfoQuery(userId)
+  const { data, isLoading, isSuccess, isError, error } = useGetUserInfoQuery(userId || getIdFromToken() || '')
 
   if (!userId) {
     return <Navigate to={getIdFromToken() || '/login'} />

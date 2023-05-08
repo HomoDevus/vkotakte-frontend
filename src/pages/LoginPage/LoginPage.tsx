@@ -1,6 +1,8 @@
 import { useAuth } from '../../hooks/useAuth';
 import { Form, Input, Button } from 'antd';
-import style from './LoginPage.module.css';
+import style from '../AuthPage.module.css';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 export default function LoginPage() {
   const { login, isLogging } = useAuth()
@@ -20,7 +22,7 @@ export default function LoginPage() {
           name="email"
           rules={[{ required: true, message: 'Please input your email!' }]}
         >
-          <Input />
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
         </Form.Item>
 
         <Form.Item
@@ -28,13 +30,15 @@ export default function LoginPage() {
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
-          <Input.Password />
+          <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password" />
         </Form.Item>
-
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" disabled={isLogging} loading={isLogging}>
-            Submit
-          </Button>
+          <div className={style.submitContainer}>
+            <Button type="primary" htmlType="submit" disabled={isLogging} loading={isLogging}>
+              Submit
+            </Button>
+            <div>Or <Link to="/register">register now!</Link></div>
+          </div>
         </Form.Item>
       </Form>
     </div>
