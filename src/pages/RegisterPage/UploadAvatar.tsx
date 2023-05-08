@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { RcFile, UploadChangeParam } from 'antd/es/upload';
 import { beforeUpload, getBase64 } from '../../utils';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import style from './UploadAvatar.module.css'
 
-export default function UploadAvatar() {
+type Props = { setAvatarFileId: (fileName?: string) => void }
+
+export default function UploadAvatar({ setAvatarFileId }: Props) {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
@@ -12,14 +15,18 @@ export default function UploadAvatar() {
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
-    }
-
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj as RcFile, (url) => {
+    } else if (info.file.status === 'done') {
+      getBase64(info.file.originFileObj as RcFile).then((url) => {
         setLoading(false);
         setImageUrl(url);
       });
+
+      try {
+        const response = JSON.parse(info.file.xhr.response)
+        setAvatarFileId(response._id)
+      } catch (err) {
+        console.error(err)
+      }
     }
   };
 
@@ -34,13 +41,14 @@ export default function UploadAvatar() {
     <Upload
       name="avatar"
       listType="picture-circle"
-      className="avatar-uploader"
+      className={style.imageUploader}
       showUploadList={false}
-      // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      action={process.env?.REACT_APP_BACKEND_URL + '/upload-avatar'}
       beforeUpload={beforeUpload}
       onChange={handleChange}
+      accept="image/png, image/jpeg"
     >
-      {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+      {imageUrl ? <img src={imageUrl} alt="avatar" className={style.imagePreview} /> : uploadButton}
     </Upload>
   )
 }

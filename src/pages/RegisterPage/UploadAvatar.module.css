@@ -1,0 +1,9 @@
+.imageUploader :global(:is(.ant-upload, .ant-upload-select)) {
+  overflow: hidden;
+}
+
+.imagePreview {
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}

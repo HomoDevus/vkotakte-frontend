@@ -57,20 +57,22 @@ export function getIdFromToken() {
   return decodeJWT(cookie)?.id
 }
 
-export const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result as string));
-  reader.readAsDataURL(img);
-};
+export const getBase64 = (file: RcFile): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
 
 export const beforeUpload = (file: RcFile) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
   if (!isJpgOrPng) {
     message.error('You can only upload JPG/PNG file!');
   }
-  const isLt2M = file.size / 1024 / 1024 > 12;
-  if (!isLt2M) {
+  const isRightSize = file.size / 1024 / 1024 < 12;
+  if (!isRightSize) {
     message.error('Image must smaller than 12MB!');
   }
-  return isJpgOrPng && isLt2M;
+  return isJpgOrPng && isRightSize;
 };

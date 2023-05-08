@@ -2,7 +2,7 @@ import style from '../AuthPage.module.css'
 import { Button, Form, Input, InputNumber } from 'antd';
 import { useAuth } from '../../hooks/useAuth';
 import { useRegisterMutation } from '../../api/apiSlice';
-import { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { RegisterRequest } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import UploadAvatar from './UploadAvatar';
@@ -11,10 +11,11 @@ export default function RegisterPage() {
   const { setToken } = useAuth()
   const [register, { isLoading, isSuccess, data: registerData }] = useRegisterMutation()
   const navigate = useNavigate()
+  const [avatarFileId, setAvatarFileId] = useState<string | undefined>()
 
   const handleRegister = useCallback((data: RegisterRequest) => {
-    register(data)
-  }, [register])
+    register({...data, avatar: avatarFileId})
+  }, [register, avatarFileId])
 
   useEffect(() => {
     if (isSuccess && registerData?.token) {
@@ -63,7 +64,7 @@ export default function RegisterPage() {
           label="Avatar"
           name="avatar"
         >
-          <UploadAvatar />
+          <UploadAvatar setAvatarFileId={setAvatarFileId} />
         </Form.Item>
         <Form.Item
           label="Password"
