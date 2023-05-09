@@ -1,13 +1,16 @@
 import { Upload, UploadFile, UploadProps } from 'antd'
 import { useState } from 'react'
 import { RcFile, UploadChangeParam } from 'antd/es/upload'
-import { beforeUpload, getBase64 } from '../../utils'
+import { beforeUpload, getBase64 } from '../../../utils'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import style from './UploadAvatar.module.css'
+import style from './UploadImage.module.css'
 
-type Props = { setAvatarFileId: (fileName?: string) => void }
+type Props = {
+  setFileId: (fileName?: string) => void;
+  listType?: UploadProps['listType']
+}
 
-export default function UploadAvatar({ setAvatarFileId }: Props) {
+export default function UploadImage({ setFileId, listType = 'picture-circle' }: Props) {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState<string>()
 
@@ -25,7 +28,7 @@ export default function UploadAvatar({ setAvatarFileId }: Props) {
 
       try {
         const response = JSON.parse(info.file.xhr.response)
-        setAvatarFileId(response._id)
+        setFileId(response._id)
       } catch (err) {
         console.error(err)
       }
@@ -41,17 +44,17 @@ export default function UploadAvatar({ setAvatarFileId }: Props) {
 
   return (
     <Upload
-      name='avatar'
-      listType='picture-circle'
+      name='image'
+      listType={listType}
       className={style.imageUploader}
       showUploadList={false}
-      action={process.env?.REACT_APP_BACKEND_URL + '/upload-avatar'}
+      action={process.env?.REACT_APP_BACKEND_URL + '/upload-image'}
       beforeUpload={beforeUpload}
       onChange={handleChange}
       accept='image/png, image/jpeg'
     >
       {imageUrl ? (
-        <img src={imageUrl} alt='avatar' className={style.imagePreview} />
+        <img src={imageUrl} alt="Uploaded" className={style.imagePreview} />
       ) : (
         uploadButton
       )}

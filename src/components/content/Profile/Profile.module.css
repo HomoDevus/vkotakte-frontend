@@ -1,8 +1,9 @@
 .profileContent {
   display: grid;
-  grid-template-columns: minmax(100px, 500px) 1fr;
+  grid-template-columns: minmax(100px, 500px) minmax(100px, 500px);
+  column-gap: 40px;
 }
 
-.profileInfo > *:not(:last-child) {
-  margin-bottom: 20px;
+.itemsContainer > *:not(:last-child) {
+  margin-bottom: 40px;
 }

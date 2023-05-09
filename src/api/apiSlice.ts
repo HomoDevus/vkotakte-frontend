@@ -1,5 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { AuthResponse, RegisterRequest, UserInfoRequest } from '../types'
+import {
+  AuthResponse,
+  ImageResponse,
+  PublicationRequest,
+  PublicationResponse,
+  RegisterRequest,
+  UserInfoRequest
+} from '../types'
 import { LoginData } from '../types'
 import { getCookie } from '../utils'
 import { JWT_COOKIE_NAME } from '../consts'
@@ -36,11 +43,21 @@ export const apiSlice = createApi({
     getUserInfo: builder.query<UserInfoRequest, string>({
       query: userId => `/user-info/${userId}`,
     }),
-    getAvatar: builder.query<any, string>({
-      query: avatarId => `/download-avatar/${avatarId}`
+    getImage: builder.query<ImageResponse, string>({
+      query: imageId => `/download-image/${imageId}`
+    }),
+    addPublication: builder.mutation<PublicationResponse, PublicationRequest>({
+      query: publicationData => ({
+        url: '/add-publication',
+        method: 'POST',
+        body: publicationData
+      })
+    }),
+    getUserPublications: builder.query<PublicationResponse[], string>({
+      query: userId => `/publications/${userId}`
     })
   }),
 })
 
-export const { useGetUserInfoQuery, useRegisterMutation, useLoginMutation, useGetAvatarQuery } =
+export const { useGetUserInfoQuery, useRegisterMutation, useLoginMutation, useGetImageQuery, useAddPublicationMutation, useGetUserPublicationsQuery } =
   apiSlice

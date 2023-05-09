@@ -5,7 +5,7 @@ import { useRegisterMutation } from '../../api/apiSlice'
 import React, { useCallback, useEffect, useState } from 'react'
 import { RegisterRequest } from '../../types'
 import { useNavigate } from 'react-router-dom'
-import UploadAvatar from './UploadAvatar'
+import UploadImage from '../../components/common/UploadImage/UploadImage'
 
 export default function RegisterPage() {
   const { setToken } = useAuth()
@@ -59,7 +59,7 @@ export default function RegisterPage() {
           <InputNumber min='0' max='200' />
         </Form.Item>
         <Form.Item label='Avatar' name='avatar'>
-          <UploadAvatar setAvatarFileId={setAvatarFileId} />
+          <UploadImage setFileId={setAvatarFileId} />
         </Form.Item>
         <Form.Item
           label='Password'

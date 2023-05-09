@@ -20,3 +20,19 @@ export type LoginData = {
   email: string
   password: string
 }
+
+export interface PublicationRequest {
+  title: string;
+  description: string;
+  image?: string;
+  userId: string;
+}
+
+export interface PublicationResponse extends PublicationRequest {
+  likes: number;
+  _id: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type ImageResponse = {data: Buffer};
