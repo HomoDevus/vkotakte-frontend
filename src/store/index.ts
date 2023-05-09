@@ -1,11 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from '../api/apiSlice';
+import { configureStore } from '@reduxjs/toolkit'
+import { apiSlice } from '../api/apiSlice'
+import { rtkQueryErrorLogger } from './errorHandler'
 
 export const store = configureStore({
   reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware)
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware()
+      .concat(apiSlice.middleware)
+      .concat(rtkQueryErrorLogger),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
