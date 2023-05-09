@@ -36,8 +36,11 @@ export const apiSlice = createApi({
     getUserInfo: builder.query<UserInfoRequest, string>({
       query: userId => `/user-info/${userId}`,
     }),
+    getAvatar: builder.query<any, string>({
+      query: avatarId => `/download-avatar/${avatarId}`
+    })
   }),
 })
 
-export const { useGetUserInfoQuery, useRegisterMutation, useLoginMutation } =
+export const { useGetUserInfoQuery, useRegisterMutation, useLoginMutation, useGetAvatarQuery } =
   apiSlice

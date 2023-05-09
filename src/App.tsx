@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage/LoginPage'
 import LayoutWrapper from './components/layout/LayoutWrapper/LayoutWrapper'
 import { ProtectedRoute } from './components/common/ProtectedRoute'
-import Profile from './components/content/Profile'
+import Profile from './components/content/Profile/Profile'
 import ErrorPage from './pages/ErrorPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 

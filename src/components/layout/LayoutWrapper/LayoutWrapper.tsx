@@ -14,7 +14,7 @@ export default function LayoutWrapper() {
       <Header />
       <Layout>
         <Menu />
-        <Content>
+        <Content className={style.content}>
           <Outlet />
         </Content>
       </Layout>
