@@ -50,6 +50,7 @@
     "@types/react": "^18.2.5",
     "@types/react-dom": "^18.2.3",
     "@types/react-redux": "^7.1.25",
+    "gh-pages": "^5.0.0",
     "prettier": "2.8.8",
     "typescript-plugin-css-modules": "^5.0.1"
   }
