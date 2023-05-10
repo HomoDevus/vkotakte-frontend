@@ -25,6 +25,7 @@ export const apiSlice = createApi({
       return headers
     },
   }),
+  tagTypes: ['Publications'],
   endpoints: builder => ({
     register: builder.mutation<AuthResponse, RegisterRequest>({
       query: userData => ({
@@ -51,13 +52,23 @@ export const apiSlice = createApi({
         url: '/add-publication',
         method: 'POST',
         body: publicationData
-      })
+      }),
+      invalidatesTags: ['Publications']
     }),
     getUserPublications: builder.query<PublicationResponse[], string>({
-      query: userId => `/publications/${userId}`
-    })
+      query: userId => `/publications/${userId}`,
+      providesTags: ['Publications'],
+      transformResponse: (response: PublicationResponse[]) => response.reverse()
+    }),
   }),
 })
 
-export const { useGetUserInfoQuery, useRegisterMutation, useLoginMutation, useGetImageQuery, useAddPublicationMutation, useGetUserPublicationsQuery } =
+export const {
+  useGetUserInfoQuery,
+  useRegisterMutation,
+  useLoginMutation,
+  useGetImageQuery,
+  useAddPublicationMutation,
+  useGetUserPublicationsQuery
+} =
   apiSlice
