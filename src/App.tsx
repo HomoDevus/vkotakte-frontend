@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage/LoginPage'
 import LayoutWrapper from './components/layout/LayoutWrapper/LayoutWrapper'
@@ -8,6 +7,7 @@ import Profile from './components/content/Profile/Profile'
 import ErrorPage from './pages/ErrorPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 import Users from './components/content/Users/Users';
+import Feed from './components/content/Feed/Feed';
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
         <Route path='profile/:userId' element={<Profile />} />
         <Route path='profile' element={<Profile />} />
         <Route path='users' element={<Users />} />
+        <Route path='feed' element={<Feed />} />
       </Route>
     </Routes>
   )

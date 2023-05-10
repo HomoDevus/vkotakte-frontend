@@ -8,8 +8,8 @@ import {
 import { getIdFromToken } from '../../../utils'
 import { Button, Descriptions, Image, Spin } from 'antd';
 import style from './Profile.module.css'
-import PublicationForm from '../PublicationForm';
-import Publications from '../Publications';
+import PublicationForm from './PublicationForm';
+import Publications from './Publications';
 import { BASE64_PREFIX } from '../../../consts';
 
 export default function Profile() {
@@ -22,7 +22,7 @@ export default function Profile() {
   const {
     data: avatar,
     isLoading: isAvatarLoading
-  } = useGetImageQuery(data?.avatar || '', { skip: !isSuccess })
+  } = useGetImageQuery(data?.avatar || '', { skip: !data?.avatar })
   const [addFriend, { isLoading: isLoadingAddFriend }] = useAddFriendMutation();
   const [removeFriend, { isLoading: isLoadingRemoveFriend }] = useRemoveFriendMutation();
 
@@ -70,7 +70,7 @@ export default function Profile() {
         {content}
         <div className={style.itemsContainer}>
           {isMyProfile && <PublicationForm />}
-          <Publications avatar={avatar} />
+          <Publications />
         </div>
       </div>
     </div>

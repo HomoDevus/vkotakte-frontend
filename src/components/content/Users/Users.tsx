@@ -1,6 +1,6 @@
 import { useGetUsersQuery } from '../../../api/apiSlice';
 import { List } from 'antd';
-import UserItem from '../UserItem';
+import UserItem from './UserItem';
 
 export default function Users() {
   const {data, isLoading} = useGetUsersQuery()
@@ -8,7 +8,6 @@ export default function Users() {
   return (
     <List
       itemLayout="horizontal"
-      className="page-title"
       dataSource={data}
       renderItem={(item) => (
         <UserItem item={item} key={item._id} />

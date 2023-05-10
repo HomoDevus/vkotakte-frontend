@@ -37,11 +37,16 @@ export interface PublicationRequest {
 }
 
 export interface PublicationResponse extends PublicationRequest {
-  likes: number;
+  likes: string[];
   _id: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export type ImageResponse = {data: Buffer};
+
+export type LikePublicationRequest = {
+  publicationId: string;
+  like: boolean;
+}
 

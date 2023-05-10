@@ -1,12 +1,10 @@
 import { Button, Form, Input } from 'antd';
-import { useAddPublicationMutation } from '../../api/apiSlice';
-import UploadImage from '../common/UploadImage/UploadImage';
+import { useAddPublicationMutation } from '../../../api/apiSlice';
+import UploadImage from '../../common/UploadImage/UploadImage';
 import { useCallback, useEffect, useState } from 'react';
-import { PublicationRequest } from '../../types';
-import { useParams } from 'react-router-dom';
+import { PublicationRequest } from '../../../types';
 
 export default function PublicationForm() {
-  const {userId} = useParams() as { userId: string }
   const [addPublication, { isLoading, isSuccess }] = useAddPublicationMutation()
   const [imageId, setImageId] = useState<string | undefined>()
   const [form] = Form.useForm()
@@ -18,8 +16,8 @@ export default function PublicationForm() {
   }, [isSuccess, form])
 
   const handlePublish = useCallback((data: PublicationRequest) => {
-    addPublication({ ...data, image: imageId, userId })
-  }, [imageId, addPublication, userId])
+    addPublication({ ...data, image: imageId })
+  }, [imageId, addPublication])
 
   return (
     <Form

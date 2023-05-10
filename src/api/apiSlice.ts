@@ -7,7 +7,7 @@ import {
   RegisterRequest,
   UserInfoRequest,
   LoginData,
-  UserResponse
+  UserResponse, LikePublicationRequest
 } from '../types'
 import { getCookie } from '../utils'
 import { JWT_COOKIE_NAME } from '../consts'
@@ -26,7 +26,7 @@ export const apiSlice = createApi({
       return headers
     },
   }),
-  tagTypes: ['Publications', 'UserInfo'],
+  tagTypes: ['Publications', 'UserInfo', 'Friends', 'Like'],
   endpoints: builder => ({
     register: builder.mutation<AuthResponse, RegisterRequest>({
       query: userData => ({
@@ -69,17 +69,33 @@ export const apiSlice = createApi({
       query: userId => ({
         url: '/add-friend',
         method: 'POST',
-        body: { userId }
+        body: { userId },
+        providesTags: ['Friends']
       }),
-      invalidatesTags: ['UserInfo']
+      invalidatesTags: ['UserInfo'],
     }),
     removeFriend: builder.mutation<void, string>({
       query: userId => ({
         url: '/remove-friend',
         method: 'POST',
-        body: { userId }
+        body: { userId },
+        providesTags: ['Friends']
       }),
-      invalidatesTags: ['UserInfo']
+      invalidatesTags: ['UserInfo'],
+    }),
+    getFeed: builder.query<PublicationResponse[], void>({
+      query: () => ({
+        url: '/feed',
+        invalidatesTags: ['Friends', 'Like']
+      })
+    }),
+    likePublication: builder.mutation<void, LikePublicationRequest>({
+      query: data => ({
+        url: '/like-publication',
+        method: 'PUT',
+        body: data,
+        providesTags: ['Like']
+      }),
     })
   }),
 })
@@ -93,6 +109,8 @@ export const {
   useGetUserPublicationsQuery,
   useGetUsersQuery,
   useAddFriendMutation,
-  useRemoveFriendMutation
+  useRemoveFriendMutation,
+  useGetFeedQuery,
+  useLikePublicationMutation
 } =
   apiSlice

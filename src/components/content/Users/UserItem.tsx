@@ -1,7 +1,7 @@
-import { UserResponse } from '../../types';
+import { UserResponse } from '../../../types';
 import { Avatar, List } from 'antd';
-import { BASE64_PREFIX } from '../../consts';
-import { useGetImageQuery } from '../../api/apiSlice';
+import { BASE64_PREFIX } from '../../../consts';
+import { useGetImageQuery } from '../../../api/apiSlice';
 import { Link } from 'react-router-dom';
 
 type Props = {
