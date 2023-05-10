@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/vkotakte-frontend/static/css/main.575179d7.css",
-    "main.js": "/vkotakte-frontend/static/js/main.90fca793.js",
+    "main.js": "/vkotakte-frontend/static/js/main.3d306156.js",
     "static/js/787.38807674.chunk.js": "/vkotakte-frontend/static/js/787.38807674.chunk.js",
     "index.html": "/vkotakte-frontend/index.html",
     "main.575179d7.css.map": "/vkotakte-frontend/static/css/main.575179d7.css.map",
-    "main.90fca793.js.map": "/vkotakte-frontend/static/js/main.90fca793.js.map",
+    "main.3d306156.js.map": "/vkotakte-frontend/static/js/main.3d306156.js.map",
     "787.38807674.chunk.js.map": "/vkotakte-frontend/static/js/787.38807674.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.575179d7.css",
-    "static/js/main.90fca793.js"
+    "static/js/main.3d306156.js"
   ]
 }
