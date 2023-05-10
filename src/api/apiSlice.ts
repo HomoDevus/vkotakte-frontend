@@ -7,7 +7,8 @@ import {
   RegisterRequest,
   UserInfoRequest,
   LoginData,
-  UserResponse, LikePublicationRequest
+  UserResponse,
+  LikePublicationRequest,
 } from '../types'
 import { getCookie } from '../utils'
 import { JWT_COOKIE_NAME } from '../consts'
@@ -44,33 +45,34 @@ export const apiSlice = createApi({
     }),
     getUserInfo: builder.query<UserInfoRequest, string>({
       query: userId => `/user-info/${userId}`,
-      providesTags: ['UserInfo']
+      providesTags: ['UserInfo'],
     }),
     getImage: builder.query<ImageResponse, string>({
-      query: imageId => `/download-image/${imageId}`
+      query: imageId => `/download-image/${imageId}`,
     }),
     addPublication: builder.mutation<PublicationResponse, PublicationRequest>({
       query: publicationData => ({
         url: '/add-publication',
         method: 'POST',
-        body: publicationData
+        body: publicationData,
       }),
-      invalidatesTags: ['Publications']
+      invalidatesTags: ['Publications'],
     }),
     getUserPublications: builder.query<PublicationResponse[], string>({
       query: userId => `/publications/${userId}`,
       providesTags: ['Publications'],
-      transformResponse: (response: PublicationResponse[]) => response.reverse()
+      transformResponse: (response: PublicationResponse[]) =>
+        response.reverse(),
     }),
     getUsers: builder.query<UserResponse[], void>({
-      query: () => '/users'
+      query: () => '/users',
     }),
     addFriend: builder.mutation<void, string>({
       query: userId => ({
         url: '/add-friend',
         method: 'POST',
         body: { userId },
-        providesTags: ['Friends']
+        providesTags: ['Friends'],
       }),
       invalidatesTags: ['UserInfo'],
     }),
@@ -79,24 +81,24 @@ export const apiSlice = createApi({
         url: '/remove-friend',
         method: 'POST',
         body: { userId },
-        providesTags: ['Friends']
+        providesTags: ['Friends'],
       }),
       invalidatesTags: ['UserInfo'],
     }),
     getFeed: builder.query<PublicationResponse[], void>({
       query: () => ({
         url: '/feed',
-        invalidatesTags: ['Friends', 'Like']
-      })
+        invalidatesTags: ['Friends', 'Like'],
+      }),
     }),
     likePublication: builder.mutation<void, LikePublicationRequest>({
       query: data => ({
         url: '/like-publication',
         method: 'PUT',
         body: data,
-        providesTags: ['Like']
+        providesTags: ['Like'],
       }),
-    })
+    }),
   }),
 })
 
@@ -111,6 +113,5 @@ export const {
   useAddFriendMutation,
   useRemoveFriendMutation,
   useGetFeedQuery,
-  useLikePublicationMutation
-} =
-  apiSlice
+  useLikePublicationMutation,
+} = apiSlice

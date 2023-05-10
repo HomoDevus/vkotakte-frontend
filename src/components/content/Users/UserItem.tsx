@@ -1,18 +1,17 @@
-import { UserResponse } from '../../../types';
-import { Avatar, List } from 'antd';
-import { BASE64_PREFIX } from '../../../consts';
-import { useGetImageQuery } from '../../../api/apiSlice';
-import { Link } from 'react-router-dom';
+import { UserResponse } from '../../../types'
+import { Avatar, List } from 'antd'
+import { BASE64_PREFIX } from '../../../consts'
+import { useGetImageQuery } from '../../../api/apiSlice'
+import { Link } from 'react-router-dom'
 
 type Props = {
-  item: UserResponse;
+  item: UserResponse
 }
 
-export default function UserItem({item}: Props) {
-  const {
-    data: avatar,
-    isSuccess
-  } = useGetImageQuery(item.avatar as string, { skip: !item?.avatar })
+export default function UserItem({ item }: Props) {
+  const { data: avatar, isSuccess } = useGetImageQuery(item.avatar as string, {
+    skip: !item?.avatar,
+  })
 
   return (
     <List.Item
@@ -20,8 +19,8 @@ export default function UserItem({item}: Props) {
     >
       <List.Item.Meta
         avatar={isSuccess && <Avatar src={BASE64_PREFIX + avatar?.data} />}
-        title={<a href="https://ant.design">{item.name}</a>}
-        description=""
+        title={<a href='https://ant.design'>{item.name}</a>}
+        description=''
       />
     </List.Item>
   )

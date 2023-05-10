@@ -20,7 +20,11 @@ function getItem(
   } as MenuItem
 }
 
-const items: MenuItem[] = [getItem('Profile', 'profile'), getItem('Users', 'users'), getItem('Feed', 'feed')]
+const items: MenuItem[] = [
+  getItem('Profile', 'profile'),
+  getItem('Users', 'users'),
+  getItem('Feed', 'feed'),
+]
 
 export default function Menu() {
   const location = useLocation()
@@ -38,9 +42,9 @@ export default function Menu() {
   )
 
   return (
-    <Sider theme="light">
+    <Sider theme='light'>
       <AntMenu
-        mode="inline"
+        mode='inline'
         items={items}
         selectedKeys={[selectedItem]}
         onClick={handleMenuItemClick}

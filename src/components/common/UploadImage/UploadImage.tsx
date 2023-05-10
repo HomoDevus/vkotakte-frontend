@@ -6,11 +6,14 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import style from './UploadImage.module.css'
 
 type Props = {
-  setFileId: (fileName?: string) => void;
+  setFileId: (fileName?: string) => void
   listType?: UploadProps['listType']
 }
 
-export default function UploadImage({ setFileId, listType = 'picture-circle' }: Props) {
+export default function UploadImage({
+  setFileId,
+  listType = 'picture-circle',
+}: Props) {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState<string>()
 
@@ -54,7 +57,7 @@ export default function UploadImage({ setFileId, listType = 'picture-circle' }: 
       accept='image/png, image/jpeg'
     >
       {imageUrl ? (
-        <img src={imageUrl} alt="Uploaded" className={style.imagePreview} />
+        <img src={imageUrl} alt='Uploaded' className={style.imagePreview} />
       ) : (
         uploadButton
       )}

@@ -14,7 +14,7 @@ export interface UserInfoRequest extends User {
 }
 
 export interface UserResponse extends User {
-  _id: string;
+  _id: string
 }
 
 export type RegisterRequest = Optional<
@@ -30,23 +30,22 @@ export type LoginData = {
 }
 
 export interface PublicationRequest {
-  title: string;
-  description: string;
-  image?: string;
-  userId: string;
+  title: string
+  description: string
+  image?: string
+  userId: string
 }
 
 export interface PublicationResponse extends PublicationRequest {
-  likes: string[];
-  _id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  likes: string[]
+  _id: string
+  createdAt: Date
+  updatedAt: Date
 }
 
-export type ImageResponse = {data: Buffer};
+export type ImageResponse = { data: Buffer }
 
 export type LikePublicationRequest = {
-  publicationId: string;
-  like: boolean;
+  publicationId: string
+  like: boolean
 }
-

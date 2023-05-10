@@ -6,8 +6,8 @@ import { ProtectedRoute } from './components/common/ProtectedRoute'
 import Profile from './components/content/Profile/Profile'
 import ErrorPage from './pages/ErrorPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
-import Users from './components/content/Users/Users';
-import Feed from './components/content/Feed/Feed';
+import Users from './components/content/Users/Users'
+import Feed from './components/content/Feed/Feed'
 
 function App() {
   return (
