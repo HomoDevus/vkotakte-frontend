@@ -20,7 +20,7 @@ function getItem(
   } as MenuItem
 }
 
-const items: MenuItem[] = [getItem('Profile', 'profile')]
+const items: MenuItem[] = [getItem('Profile', 'profile'), getItem('Users', 'users')]
 
 export default function Menu() {
   const location = useLocation()

@@ -5,9 +5,10 @@ import {
   PublicationRequest,
   PublicationResponse,
   RegisterRequest,
-  UserInfoRequest
+  UserInfoRequest,
+  LoginData,
+  UserResponse
 } from '../types'
-import { LoginData } from '../types'
 import { getCookie } from '../utils'
 import { JWT_COOKIE_NAME } from '../consts'
 
@@ -60,6 +61,9 @@ export const apiSlice = createApi({
       providesTags: ['Publications'],
       transformResponse: (response: PublicationResponse[]) => response.reverse()
     }),
+    getUsers: builder.query<UserResponse[], void>({
+      query: () => '/users'
+    })
   }),
 })
 
@@ -69,6 +73,7 @@ export const {
   useLoginMutation,
   useGetImageQuery,
   useAddPublicationMutation,
-  useGetUserPublicationsQuery
+  useGetUserPublicationsQuery,
+  useGetUsersQuery,
 } =
   apiSlice

@@ -1,12 +1,19 @@
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
-export type UserInfoRequest = {
-  id: string
+export interface User {
   name: string
   city: string
   age: number
   avatar: string
   education: string
+}
+
+export interface UserInfoRequest extends User {
+  id: string
+}
+
+export interface UserResponse extends User {
+  _id: string;
 }
 
 export type RegisterRequest = Optional<
@@ -36,3 +43,4 @@ export interface PublicationResponse extends PublicationRequest {
 }
 
 export type ImageResponse = {data: Buffer};
+

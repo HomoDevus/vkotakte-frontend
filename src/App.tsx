@@ -7,6 +7,7 @@ import { ProtectedRoute } from './components/common/ProtectedRoute'
 import Profile from './components/content/Profile/Profile'
 import ErrorPage from './pages/ErrorPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
+import Users from './components/content/Users/Users';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       >
         <Route path='profile/:userId' element={<Profile />} />
         <Route path='profile' element={<Profile />} />
+        <Route path='users' element={<Users />} />
       </Route>
     </Routes>
   )
