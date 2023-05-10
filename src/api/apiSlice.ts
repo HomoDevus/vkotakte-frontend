@@ -26,7 +26,7 @@ export const apiSlice = createApi({
       return headers
     },
   }),
-  tagTypes: ['Publications'],
+  tagTypes: ['Publications', 'UserInfo'],
   endpoints: builder => ({
     register: builder.mutation<AuthResponse, RegisterRequest>({
       query: userData => ({
@@ -44,6 +44,7 @@ export const apiSlice = createApi({
     }),
     getUserInfo: builder.query<UserInfoRequest, string>({
       query: userId => `/user-info/${userId}`,
+      providesTags: ['UserInfo']
     }),
     getImage: builder.query<ImageResponse, string>({
       query: imageId => `/download-image/${imageId}`
@@ -63,6 +64,22 @@ export const apiSlice = createApi({
     }),
     getUsers: builder.query<UserResponse[], void>({
       query: () => '/users'
+    }),
+    addFriend: builder.mutation<void, string>({
+      query: userId => ({
+        url: '/add-friend',
+        method: 'POST',
+        body: { userId }
+      }),
+      invalidatesTags: ['UserInfo']
+    }),
+    removeFriend: builder.mutation<void, string>({
+      query: userId => ({
+        url: '/remove-friend',
+        method: 'POST',
+        body: { userId }
+      }),
+      invalidatesTags: ['UserInfo']
     })
   }),
 })
@@ -75,5 +92,7 @@ export const {
   useAddPublicationMutation,
   useGetUserPublicationsQuery,
   useGetUsersQuery,
+  useAddFriendMutation,
+  useRemoveFriendMutation
 } =
   apiSlice

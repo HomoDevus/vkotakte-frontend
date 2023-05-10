@@ -6,6 +6,7 @@ export interface User {
   age: number
   avatar: string
   education: string
+  friends: string[]
 }
 
 export interface UserInfoRequest extends User {

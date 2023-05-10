@@ -1,7 +1,12 @@
 import { useParams, Navigate } from 'react-router-dom'
-import { useGetImageQuery, useGetUserInfoQuery } from '../../../api/apiSlice'
+import {
+  useAddFriendMutation,
+  useGetImageQuery,
+  useGetUserInfoQuery,
+  useRemoveFriendMutation
+} from '../../../api/apiSlice'
 import { getIdFromToken } from '../../../utils'
-import { Descriptions, Image, Spin } from 'antd';
+import { Button, Descriptions, Image, Spin } from 'antd';
 import style from './Profile.module.css'
 import PublicationForm from '../PublicationForm';
 import Publications from '../Publications';
@@ -9,7 +14,8 @@ import { BASE64_PREFIX } from '../../../consts';
 
 export default function Profile() {
   const { userId } = useParams()
-  const isMyProfile = Boolean(userId)
+  const tokenId = getIdFromToken() as string
+  const isMyProfile = userId === tokenId
   const { data, isLoading, isSuccess, isError, error } = useGetUserInfoQuery(
     userId || '', { skip: !userId }
   )
@@ -17,6 +23,8 @@ export default function Profile() {
     data: avatar,
     isLoading: isAvatarLoading
   } = useGetImageQuery(data?.avatar || '', { skip: !isSuccess })
+  const [addFriend, { isLoading: isLoadingAddFriend }] = useAddFriendMutation();
+  const [removeFriend, { isLoading: isLoadingRemoveFriend }] = useRemoveFriendMutation();
 
   if (!userId) {
     return <Navigate to={getIdFromToken() || '/login'} />
@@ -42,6 +50,13 @@ export default function Profile() {
           {data.city && <Descriptions.Item label="City">{data.city}</Descriptions.Item>}
           {data.education && <Descriptions.Item label="Education" span={2}>{data.education}</Descriptions.Item>}
         </Descriptions>
+        {
+          !isMyProfile && (
+            data?.friends?.includes(tokenId) ?
+              <Button onClick={() => removeFriend(userId)} loading={isLoadingRemoveFriend}>Remove from friends</Button> :
+              <Button onClick={() => addFriend(userId)} loading={isLoadingAddFriend} type="primary">Add to friends</Button>
+          )
+        }
       </div>
     )
   } else if (isError) {
@@ -50,7 +65,7 @@ export default function Profile() {
 
   return (
     <div>
-      <h2 className="page-title">{isMyProfile ? 'My profile' : 'User profile'}</h2>
+      <h2 className="page-title">{isMyProfile ? 'My profile' : `${data?.name || 'User'} profile`}</h2>
       <div className={style.profileContent}>
         {content}
         <div className={style.itemsContainer}>
